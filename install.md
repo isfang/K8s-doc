@@ -9,6 +9,15 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 
 3.可执行 apt-get update 更新下本地包索引
 
-4.可执行 apt-get install docker-ce=17.03.2~ce-0~ubuntu-xenial
+4.install docker 可执行 
+apt-get install docker-ce=17.03.2~ce-0~ubuntu-xenial   
+
+
+
+安装k8s环境
+
+kubeadm将k8s组建以容器化的方式安装运行
+node中的kubelet
+kubectl 至少存在于master上 管理集群
 
 
