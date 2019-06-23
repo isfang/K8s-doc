@@ -59,6 +59,8 @@ vi /etc/fstab
 kubeadm config images pull
 2.kubeadm init --apiserver-advertise-address=10.0.2.15 --pod-network-cidr=192.168.16.0/20
 
+kubeadm join 10.0.2.15:6443 --token cxxis4.km9xv43ckx1yc8yn \
+    --discovery-token-ca-cert-hash sha256:0d578f501a145cd372e9346b8d4161cf92b8bc0eb53186356b8bf35102fa21c6
 
 
 失败了  重新开始可以用
@@ -69,7 +71,19 @@ vi /etc/systemd/system/docker.service.d/http-proxy.conf
 vi /etc/systemd/system/docker.service.d/https-proxy.conf
 
 
-3.
+3.export KUBECONFIG=/etc/kubernetes/admin.conf
+kubeadm config images
+kubectl get pods -n kube-system -o -wide
 
+
+4. 安装成功以后 安装 weave网络节点
+执行curl -L "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')" > weave.yaml
+
+vi weave.yaml 修改：IPALLOC_RANGE
+在 weave-net 节点下 添加
+                - name: IPALLOC_RANGE
+                  value: 192.168.16.0/20
+
+执行 kubectl apply -f weave.yaml  运行该容器
 
 
